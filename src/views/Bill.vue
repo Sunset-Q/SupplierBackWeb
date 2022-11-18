@@ -24,7 +24,7 @@
 <script>
 import JsonTable from "@/components/JsonTable/index.vue";
 import {reactive, getCurrentInstance} from "vue";
-import {searchColumns, tableColumns, localService, options} from "@/components/JsonTable/config.js";
+import {searchColumns, tableColumns, localService, options} from "@/components/JsonTable/billConfig.js";
 export default {
     setup(props, {emit}) {
         let {ctx} = getCurrentInstance();
@@ -53,7 +53,7 @@ export default {
                         message: '已取消删除'
                     });
             });
-            
+
         }
         function handleRowSelectChange(val) {
             console.log(val, 'selectList');
@@ -76,5 +76,5 @@ export default {
 </script>
 
 <style lang="less">
-    
+
 </style>

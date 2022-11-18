@@ -1,5 +1,5 @@
 <template>
-<div>   
+<div>
     <div class="login"></div>
     <div class="login-form">
         <el-form :model="form" ref="loginForm" label-width="50px" class="demo-ruleForm">
@@ -11,7 +11,7 @@
                 <el-input type="password" v-model="form.pass" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="success" size="mini" @click="submitForm()">提交</el-button>
+                <el-button type="success" size="mini" @click="submitForm()">登录</el-button>
                 <el-button @click="resetForm()" size="mini">重置</el-button>
             </el-form-item>
             <div class="tips">账号：admin 密码：123456</div>
@@ -24,6 +24,37 @@
 import { defineComponent, reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import {useRouter} from "vue-router";
+import request from "@/request";
+import axios from "axios";
+
+/*export default {
+  name:"Login",
+  data(){
+    return{
+      form:{}
+    };
+  },
+  methods:{
+    submitForm() {
+      this.$refs.loginForm.
+    }
+  }
+};*/
+
+// export default {
+//   name:'Login',
+//   data(){
+//     return{
+//       form:{}
+//     };
+//   },
+//   methods:{
+//     submitForm(){
+//       this.
+//     }
+//   },
+// }
+
 export default defineComponent({
     setup() {
         const router = useRouter();
@@ -32,8 +63,13 @@ export default defineComponent({
             account: '',
             pass: ''
         });
-        const submitForm = () => {
+
+         const submitForm = () => {
             console.log(form);
+            request.get("/login").then((data) => {
+              console.log()
+            };
+
             if (form.account != "admin" || form.pass != "123456"){
                 ElMessage('账号或密码错误');
                 return;
@@ -41,6 +77,7 @@ export default defineComponent({
             localStorage.setItem('user', JSON.stringify(form));
             router.push('/');
         };
+
         const resetForm = () => {
             loginForm.value.resetFields();
         };
@@ -64,10 +101,10 @@ export default defineComponent({
     .login{
         width: 100vw;
         height: 100vh;
-        background-image: url('https://img.zcool.cn/community/011cc26067bf7c11013e87f41a7eb1.jpg@1280w_1l_2o_100sh.jpg');
+        background-image: url('https://wallpapercave.com/wp/wp5608312.jpg');
         background-repeat: no-repeat;
         background-size: cover;
-        filter:blur(5px);
+        filter:blur(1px);
     }
     .login-form{
         position: absolute;
