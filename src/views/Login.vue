@@ -24,8 +24,8 @@
 import { defineComponent, reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import {useRouter} from "vue-router";
-import request from "@/request";
-import axios from "axios";
+import request from "@/request/index";
+import show from '@/assets/show.png';
 
 /*export default {
   name:"Login",
@@ -41,19 +41,38 @@ import axios from "axios";
   }
 };*/
 
-// export default {
-//   name:'Login',
-//   data(){
-//     return{
-//       form:{}
-//     };
-//   },
-//   methods:{
-//     submitForm(){
-//       this.
-//     }
-//   },
-// }
+/*export default {
+  name:"Login",
+
+  data(){
+    return {
+      user:{}
+    };
+
+  },
+  methods:{
+    submitForm() {
+      const router = useRouter();
+
+      const form = reactive({
+        account: '',
+        pass: ''
+      });
+      if (form.account != "admin" || form.pass != "123456"){
+        ElMessage('账号或密码错误');
+        return;
+      }
+      localStorage.setItem('user', JSON.stringify(form));
+      router.push('/');
+    },
+    resetForm() {
+      const loginForm = ref(null);
+      loginForm.value.resetFields();
+    }
+
+  },
+
+};*/
 
 export default defineComponent({
     setup() {
@@ -66,9 +85,28 @@ export default defineComponent({
 
          const submitForm = () => {
             console.log(form);
-            request.get("/login").then((data) => {
-              console.log()
-            };
+
+
+           request.post('http://localhost:9090/petshop/supplier/login', {account: this.form.account,
+             password:this.form.pass
+               }).then(function(res){
+                 console.log(res.data);
+           }).catch(function (error){
+             console.log(error);
+           });
+
+            // request.post("/supplier/login",
+            //   {account: this.form.account,
+            //     password:this.form.pass
+            //   }).then(res => {
+            //     console.log(res);
+            //     if (res.status === 200){
+            //       let loginForm = res.result;
+            //       localStorage.setItem('user', JSON.stringify(form));
+            //       router.push('/');
+            //     }
+
+            // });
 
             if (form.account != "admin" || form.pass != "123456"){
                 ElMessage('账号或密码错误');
@@ -101,7 +139,7 @@ export default defineComponent({
     .login{
         width: 100vw;
         height: 100vh;
-        background-image: url('https://wallpapercave.com/wp/wp5608312.jpg');
+        background: url(~@/assets/show.png);
         background-repeat: no-repeat;
         background-size: cover;
         filter:blur(1px);
