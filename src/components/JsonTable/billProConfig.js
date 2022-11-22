@@ -1,90 +1,45 @@
 // import request from '@/server/request';
-import {billData} from './billDataMock';
+import {billPro} from './billProMock';
+import request from "@/request/index";
+
 export const searchColumns = [
-    {
-        label: '姓名',
-        prop: 'name',
-        clearable: true,
-        placeholder: "请输入姓名"
-    },
-    {
-        label: '性别',
-        prop: 'sex',
-        clearable: true,
-        placeholder: "性别",
-        isSelect: true,
-        options: [
-            {
-                prop: 'male',
-                name: '男'
-            },
-            {
-                prop: 'female',
-                name: '女'
-            }
-        ]
-    },
-    {
-        label: '技能',
-        prop: 'skill',
-        clearable: true,
-        placeholder: "请选择",
-        isCascader: true,
-        options: [
-              {
-                value: "basic",
-                label: "Basic",
-                children: [
-                {
-                    value: "layout",
-                    label: "Layout 布局"
-                },
-                {
-                    value: "color",
-                    label: "Color 色彩"
-                },
-                {
-                    value: "typography",
-                    label: "Typography 字体"
-                },
-                {
-                    value: "icon",
-                    label: "Icon 图标"
-                },
-                {
-                    value: "button",
-                    label: "Button 按钮"
-                }
-                ]
-            }
-        ]
-    },
-    {
-        label: '出生日期',
-        prop: 'born',
-        clearable: true,
-        placeholder: "选择日期",
-        isTime: 'date'
-    },
-    {
-        label: '工作日期',
-        prop: 'working',
-        clearable: true,
-        placeholder: "选择日期",
-        isTime: 'datetimerange'
-    }
+  {
+    label: '订单号',
+    prop: 'billID',
+    clearable: true,
+    placeholder: "请输入订单号"
+  },
+  {
+    label: '产品ID',
+    prop: 'proID',
+    clearable: true,
+    placeholder: "请输入宠物ID"
+  },
+  {
+    label: '店铺名',
+    prop: 'shopName',
+    clearable: true,
+    placeholder: "请输入店铺名"
+  },
+  {
+    label: '下单日期',
+    prop: 'working',
+    clearable: true,
+    placeholder: "选择日期",
+    isTime: 'datetimerange'
+  }
 ];
 
 export const tableColumns = [
     {
-        prop: 'billID',
+        prop: 'salesOrderId',
         label: '订单号',
         width: 150,
         overflow: true
     },
     {
-        prop: 'petID',
-        label: '宠物ID',
+        prop: 'salesProductsId',
+        label: '商品ID',
         width: 150,
         overflow: true
     },
@@ -96,76 +51,71 @@ export const tableColumns = [
     //     expandFunc: true // 是否有扩展功能，启用表格列插槽
     // },
     {
-        prop: 'shopID',
+        prop: 'petshopId',
         label: '店铺ID',
         width: 150,
         overflow: true
     },
     {
-      prop: 'shopName',
+      prop: 'petshopName',
       label: '店铺名',
       width: 150,
       overflow: true
     },
     {
-        prop: 'petNum',
-        label: '宠物数量',
+        prop: 'salesProductsQuantity',
+        label: '数量',
         width: 150,
         overflow: true
     },
     {
-        prop: 'petPrice',
-        label: '宠物单价',
+        prop: 'salesProductsPrice',
+        label: '单价',
         width: 150,
         overflow: true
     },
     {
-        prop: 'shopPhone',
+        prop: 'petshopPhone',
         label: '店铺电话',
         width: 150,
         overflow: true
     },
     {
-        prop: 'shopAddress',
+        prop: 'petshopAddress',
         label: '店铺地址',
         width: 150,
         overflow: true
     },
     {
-        prop: 'purchaseTime',
+        prop: 'orderDate',
         label: '订单生成时间',
         width: 100,
         overflow: true
     },
     {
-      prop: 'sumPrice',
+      prop: 'salesAllPrice',
       label: '订单总价',
       width: 100,
       overflow: true
     },
     {
-        prop: 'deliverStatus',
-        label: '派送状态',
+        prop: 'isDelivery',
+        label: '发货状态',
         width: 150,
         overflow: true,
         expandFunc: true,
         isMultiCell: true,
         render: (scope) => {
-          let status = scope.row.deliverStatus;
-          if (status === 0) {
+          let status = scope.row.isDelivery;
+          if (parseInt(status) === 0) {
             return "待派送";
-          } else if (status === 1) {
+          } else if (parseInt(status) === 1) {
             return "已派送";
           }
           return "--";
         }
     },
-    {
-        prop: 'deliverTime',
-        label: '派送时间',
-        width: 150,
-        overflow: true
-    },
+
  /*   {   // 场景： 后端字段是json字符串，需要前端解析其中某个字段
         prop: 'jsonStr',
         label: 'json解析',
@@ -208,17 +158,26 @@ export const localService = {
  * }
  */
     get(data) {
-        // return request.get("http://localhost:3000/list", {_page: data.page, _limit: data.psize}); // 这里是实际发请求的地方
+  let proTable = {
+      code: 0,
+      data: []
+    }
+  ;
+        request.post("http://10.134.156.45:9090/petshop/supplier/getOrders/AllProducts"
+          , {_page: data.page, _limit: data.psize}).then(function (response){
+          proTable.data = response.宠物用品订单;
+          // alert(JSON.stringify(response.宠物订单));
+        }); // 这里是实际发请求的地方
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(billData);
+                resolve(proTable);
             }, 1000);
         });
     }
 };
 
 export const options = {
-    canCheck: true, // 是否可选择
+    canCheck: false, // 是否可选择
     hasIndex: true, // 是否有序号
     checkFixed: 'left', // 选择固定位置
     indexFixed: 'left', // 表序号固定位置

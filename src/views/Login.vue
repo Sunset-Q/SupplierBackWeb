@@ -8,7 +8,7 @@
                 <el-input type="text" v-model="form.account" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
-                <el-input type="password" v-model="form.pass" autocomplete="off"></el-input>
+                <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="success" size="mini" @click="submitForm()">登录</el-button>
@@ -26,53 +26,7 @@ import { ElMessage } from 'element-plus';
 import {useRouter} from "vue-router";
 import request from "@/request/index";
 import show from '@/assets/show.png';
-
-/*export default {
-  name:"Login",
-  data(){
-    return{
-      form:{}
-    };
-  },
-  methods:{
-    submitForm() {
-      this.$refs.loginForm.
-    }
-  }
-};*/
-
-/*export default {
-  name:"Login",
-
-  data(){
-    return {
-      user:{}
-    };
-
-  },
-  methods:{
-    submitForm() {
-      const router = useRouter();
-
-      const form = reactive({
-        account: '',
-        pass: ''
-      });
-      if (form.account != "admin" || form.pass != "123456"){
-        ElMessage('账号或密码错误');
-        return;
-      }
-      localStorage.setItem('user', JSON.stringify(form));
-      router.push('/');
-    },
-    resetForm() {
-      const loginForm = ref(null);
-      loginForm.value.resetFields();
-    }
-
-  },
-
-};*/
+import axios from "axios";
 
 export default defineComponent({
     setup() {
@@ -80,40 +34,29 @@ export default defineComponent({
         const loginForm = ref(null);
         const form = reactive({
             account: '',
-            pass: ''
+            password: ''
         });
 
          const submitForm = () => {
             console.log(form);
 
+           let data = {
+             account:form.account,
+             password:form.password
+           };
 
-           request.post('http://localhost:9090/petshop/supplier/login', {account: this.form.account,
-             password:this.form.pass
-               }).then(function(res){
-                 console.log(res.data);
-           }).catch(function (error){
-             console.log(error);
+           request.post('http://192.168.43.51:9090/petshop/supplier/login',data).then(function (response){
+             let res = response;
+             // alert(JSON.stringify(res.status));
+             if(res.status == 200){
+               localStorage.setItem('user', JSON.stringify(form));
+               router.push('/');
+             }else{
+               ElMessage('账号或密码错误');
+               return;
+             }
            });
 
-            // request.post("/supplier/login",
-            //   {account: this.form.account,
-            //     password:this.form.pass
-            //   }).then(res => {
-            //     console.log(res);
-            //     if (res.status === 200){
-            //       let loginForm = res.result;
-            //       localStorage.setItem('user', JSON.stringify(form));
-            //       router.push('/');
-            //     }
-
-            // });
-
-            if (form.account != "admin" || form.pass != "123456"){
-                ElMessage('账号或密码错误');
-                return;
-            }
-            localStorage.setItem('user', JSON.stringify(form));
-            router.push('/');
         };
 
         const resetForm = () => {

@@ -3,6 +3,15 @@ import Home from '@/views/Home.vue';
 import Self from '@/views/Self.vue';
 import Store from '@/views/Store.vue';
 import Bill from '@/views/Bill.vue';
+import PetBill from "@/views/PetBill.vue";
+import ProBill from "@/views/ProBill.vue";
+
+import PetStore from "@/views/PetStore.vue";
+import ProStore from "@/views/ProStore.vue";
+
+// import Vue from 'vue';
+// import VueRouter from 'vue-router';
+
 
 /**
  *
@@ -28,20 +37,41 @@ export const staticRoutes = [
       icon: 'el-icon-s-home'
     }
   },
-  {
-    path: '/self',
-    name: '个人中心',
-    component: Self,
-    children: [],
-    meta: {
-      icon: 'el-icon-orange'
-    }
-  },
+  // {
+  //   path: '/self',
+  //   name: '个人中心',
+  //   component: Self,
+  //   children: [],
+  //   meta: {
+  //     icon: 'el-icon-orange'
+  //   }
+  // },
   {
     path: '/store',
     name: '库存管理',
+    redirect:'/store/petStore',
     component: Store,
-    children: [],
+    children: [
+      {
+        path:'petStore',
+        name:'宠物库存',
+        component:PetStore,
+        query: { openstatusId: 0 },
+        children: [],
+        meta: {
+          icon: ''
+        }
+      },{
+        path:'proStore',
+        name:'宠物用品库存',
+        component:ProStore,
+        query: { openstatusId: 1 },
+        children: [],
+        meta: {
+          icon: ''
+        }
+      },
+    ],
     meta: {
       icon: 'el-icon-orange'
     }
@@ -49,10 +79,32 @@ export const staticRoutes = [
   {
     path: '/bill',
     name: '订单管理',
+    redirect:'/bill/petBill',
     component: Bill,
-    children: [],
+    children: [
+      {
+        path:'petBill',
+        name:'宠物订单',
+        component:PetBill,
+        query: { openstatusId: 0 },
+        children: [],
+        meta: {
+          icon: ''
+        }
+      },
+      {
+        path:'proBill',
+        name:'宠物用品订单',
+        component:ProBill,
+        query: { openstatusId: 1 },
+        children: [],
+        meta: {
+          icon: ''
+        }
+      },
+    ],
     meta: {
       icon: 'el-icon-orange'
     }
-  }
+  },
 ];

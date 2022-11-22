@@ -32,7 +32,7 @@
               type="text"
               size="small"
             >
-              移除
+<!--              移除-->
             </el-button>
           </template>
         </el-table-column>

@@ -109,15 +109,16 @@
                   header-row-class-name="header_class" @current-change="handleSingleSelect"
                   @sort-change="sortColumn" @selection-change="handleSelection" v-loading="isLoadingList">
             <el-table-column :fixed="options.checkFixed" v-if="options.canCheck" type="selection"
-                             width="55"></el-table-column>
+                             width="55" ></el-table-column>
             <el-table-column :fixed="options.indexFixed" v-if="options.hasIndex" type="index" width="50"
-                             label="序号"></el-table-column>
+                             label="序号" ></el-table-column>
             <el-table-column v-for="(column, key) in tableColumns" :key="key" :width="column.width"
                              :min-width="column.minWidth"
                              :class-name="column.columnClass"
                              :fixed="column.fixPosition ? column.fixPosition : false"
                              :label="column.label" :sortable="column.sortable"
-                             :show-overflow-tooltip="column.overflow">
+                             :show-overflow-tooltip="column.overflow"
+                             >
                 <template slot-scope="scope" v-if="!column.subCol">
                     <slot name="edit" v-if="column.isSlot" :rowData="scope" :columnConfig="column"></slot>
                     <!--输入字符串-->

@@ -73,7 +73,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  padding-top: 15px;
   padding-left: 20px;
+  padding-bottom: 5px;
 }
 .collapseicon {
   font-size: 18px;
@@ -91,6 +93,7 @@ export default {
   margin-right: 2px;
 }
 .el-breadcrumb {
+  font-size: 18px;
   display: inline-block;
   vertical-align: middle;
 }

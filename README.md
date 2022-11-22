@@ -1,4 +1,3 @@
-> 源码地址：[https://github.com/Mstian/Vue-Onepiece-Admin](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FMstian%2FVue-Onepiece-Admin)
 
 # Vue3.0 ElementPlus
 
@@ -21,88 +20,6 @@ npm run serve
 ```
 npm run build
 ```
-
-#### 欢迎使用VUE3.0 + ElementPlus 后台管理模板
-
-UI库文档： https://element-plus.gitee.io/#/zh-CN
-
-该项目基于Vuecli 使用Vue3 + 最新版ElementPlus 构建简单版后台管理系统
-
-基本功能：（Home页面有详细介绍可参考）
-通过路由自动生成侧边栏menu
-打开menu可以自动生成标签页
-可以使用less变量控制激活颜色
-还可以通过less变量控制主题色
-
-有需要生成menu的路由单独可以配置在一个文件，将不需要生成menu的路由配置在另外一个文件。
-没有权限系统，没有登录功能等等。
-
-简单，开箱即用。可以完全胡乱修改。可以作为Vue3项目基本参考。
-
-最后，求个star。源码地址：[https://github.com/Mstian/Vue-Onepiece-Admin](https://github.com/Mstian/Vue-Onepiece-Admin)
-
-![preview](https://upload-images.jianshu.io/upload_images/17538702-a79fed6717f6f0eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-##### 在线预览地址：http://admin.tianleilei.cn/#/
-
-### 开发过程中遇到问题以及解决方法
-
-1. scss in typescript （sass问题较多，现已采用less）
-报错：`Cannot find module ‘./index.module.scss‘ or its corresponding type declarations.ts(2307）`
-解决： 需要添加类型声明文件
-https://blog.csdn.net/qq_41804324/article/details/109388570
-https://juejin.cn/post/6844903560056930311
-
-2. 递归组件
-组件自身调用自身 参考sideBar组件
-
-3. pug(jade)模板
-文档：https://www.pugjs.cn/api/getting-started.html
-
-4. resolvePath
-使用path模块高效的处理路径拼接
-
-5. watch 与watchEffect区别
-watch不会立即执行 watchEffect会立即执行 并且可以手动取消监听
-
-6. 新版transition使用
-参考 layout /plan/src/layout/index.vue
-
-7. 浏览器控制台警告Source Map 
-https://blog.csdn.net/sundacheng1989/article/details/51118865
-
-8. 浏览器控制台警告 HMR API usage is out of date.
-https://forum.vuejs.org/t/hmr-api-usage-is-out-of-date-mutiple-warnings/107633
-
-9. es-lint快速修复
-npm run lint -- --fix
-
-10. vue-router4 404页面*配置 参考router->defaultRouter.ts
-
-11. typescript中导入模块几种方式
-https://segmentfault.com/a/1190000018249137
-
-12. json-server mock数据
-json-server文档地址：https://github.com/typicode/json-server
-
-
-### 更新：
-
-##### 2021-01-09周六
-
-新增配置化生成表单查询数据生成表格组件，以下为组件使用说明文档：
-### 功能1：表单查询
-表单支持类型：
-1. input 
-2. select
-3. cascader
-4. date (date datetimerange)
-
-表格支持功能：
-字符串，图片预览（hover），json解析，数字解析，操作栏，select选择
-
-功能预览图：
-![JsonTable预览图](https://upload-images.jianshu.io/upload_images/17538702-2e524aab18777d8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 以下为组件使用示例 以及配置项示例
 
@@ -383,7 +300,7 @@ Props:
 #### 请求接口配置属性
 
 service Obejct
-属性用于请求接口的配置，用于在组件内部进行表格数据的请求 默认是一个对象，get属性是默认的请求，参数为如下格式
+属性用于请求接口的配置，用于在组件内属性部进行表格数据的请求 默认是一个对象，get是默认的请求，参数为如下格式
 ```
 {
     page: 1,
